@@ -1,0 +1,25 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Base directory
+RewriteBase /ecommerce_farmers_fishers/
+
+# Redirect to HTTPS if preferred (optional)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Handle PHP files without extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Error documents
+ErrorDocument 404 /ecommerce_farmers_fishers/404.php
+ErrorDocument 403 /ecommerce_farmers_fishers/403.php
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
